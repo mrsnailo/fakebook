@@ -3,16 +3,25 @@
 @tailwind utilities;
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --bg: #ffffff;
+  --text: #050505;
+  --primary: #0866ff; /* Facebook Blue */
+  --secondary: #e4e6eb;
+  --card-bg: #f0f2f5;
+  --accent: #11a0b9;
+}
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* Define dark mode colors */
+.dark {
+  --bg: #18191a;
+  --text: #e4e6eb;
+  --primary: #0866ff;
+  --secondary: #3a3b3c;
+  --card-bg: #242526;
+  --accent: #11a0b9;
+}
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+body {
+  background-color: var(--bg);
+  color: var(--text);
 }
