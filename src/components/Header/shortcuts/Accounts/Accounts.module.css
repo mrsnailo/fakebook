@@ -1,0 +1,35 @@
+:root {
+  --speed: 500ms; /* You can adjust this value */
+}
+/* Main Menu Animations */
+.menuPrimary-enter {
+  position: absolute;
+  transform: translateX(-110%);
+}
+.menuPrimary-enter-active {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menuPrimary-exit {
+  position: absolute;
+}
+.menuPrimary-exit-active {
+  transform: translateX(-110%);
+  transition: all var(--speed) ease;
+}
+
+/* Theme Menu Animations */
+.menuThemes-enter {
+  transform: translateX(110%);
+}
+.menuThemes-enter-active {
+  transform: translateX(0%);
+  transition: all var(--speed) ease;
+}
+.menuThemes-exit {
+  /* No specific positioning needed here unless required */
+}
+.menuThemes-exit-active {
+  transform: translateX(110%);
+  transition: all var(--speed) ease;
+}
