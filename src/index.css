@@ -2,26 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
-  --bg: #ffffff;
+  --bg: #f2f4f7;
+  --bg-search: #f0f2f5;
   --text: #050505;
   --primary: #0866ff; /* Facebook Blue */
-  --secondary: #e4e6eb;
+  --secondary: #ffffff;
   --card-bg: #f0f2f5;
   --accent: #11a0b9;
+  --hover: #d6d9dd;
 }
 
 /* Define dark mode colors */
 .dark {
   --bg: #18191a;
+  --bg-search: #333334;
   --text: #e4e6eb;
   --primary: #0866ff;
-  --secondary: #3a3b3c;
+  --secondary: #252728;
   --card-bg: #242526;
   --accent: #11a0b9;
+  --hover: #3b3d3e;
 }
 
 body {
   background-color: var(--bg);
   color: var(--text);
+  height: 100vh;
 }
