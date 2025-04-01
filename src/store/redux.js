@@ -1,9 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
+
+import accentReducer from "./UI/Accent/accentSlice";
 
 const store = configureStore({
-    reducer: {
-        // Add your reducers here
-    },
+  reducer: {
+    accent: accentReducer,
+  },
 });
 
 export default store;

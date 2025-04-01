@@ -2,9 +2,11 @@ export function toggleTheme() {
   const currentTheme = localStorage.getItem("theme") || "light";
   const newTheme = currentTheme === "dark" ? "light" : "dark";
 
-  document.documentElement.classList.toggle("dark", newTheme === "dark");
+  document.documentElement.classList.remove("dark", "light");
+  document.documentElement.classList.add(newTheme);
+
   localStorage.setItem("theme", newTheme);
-  return newTheme; 
+  return newTheme;
 }
 
 export function getCurrentTheme() {
@@ -13,5 +15,6 @@ export function getCurrentTheme() {
 
 export function applyStoredTheme() {
   const storedTheme = getCurrentTheme();
-  document.documentElement.classList.toggle("dark", storedTheme === "dark");
+  document.documentElement.classList.remove("dark", "light");
+  document.documentElement.classList.add(storedTheme);
 }

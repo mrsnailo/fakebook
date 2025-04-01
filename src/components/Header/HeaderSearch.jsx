@@ -6,11 +6,24 @@ import logo from "../../assets/logo/logo.svg";
 import { GoDotFill } from "react-icons/go";
 import { RxCross2 } from "react-icons/rx";
 import avatar from "../../assets/images/search/avatar.jpg";
+import NormalInput from "../UI/NormalInput";
 
 export default function HeaderSearch() {
   const [isFocused, setIsFocused] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const searchRef = useRef(null);
+
+  const focusHandler = () => {
+    setIsFocused(true);
+  };
+  const blurHandler = () => {
+    if (!searchQuery) {
+      setIsFocused(false);
+    }
+  };
+  const changeHandler = (e) => {
+    setSearchQuery(e.target.alue);
+  };
 
   return (
     <div className={`flex relative ${isFocused ? "w-60" : "w-auto"}`}>
@@ -50,19 +63,15 @@ export default function HeaderSearch() {
               {!isFocused && (
                 <HiOutlineSearch className="text-gray-500 absolute left-3 top-1/2 -translate-y-1/2" />
               )}
-              <input
-                ref={searchRef}
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search Facebook"
-                className={`w-full p-2 rounded-full bg-search text-text  lg:block focus:outline-none focus:ring-0 transition-all duration-200 ${
-                  isFocused ? "pl-4 shadow-lg bg-white block" : "pl-10 hidden"
-                }`}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => {
-                  if (!searchQuery) setIsFocused(false);
-                }}
+
+              <NormalInput
+                changeHandler={changeHandler}
+                blurHandler={blurHandler}
+                focusHandler={focusHandler}
+                dataRef={searchRef}
+                isFocused={isFocused}
+                placeHolder="Search Facebook"
+                inputValue={searchQuery}
               />
             </div>
           </div>
@@ -114,7 +123,9 @@ function SearchItem(props) {
           <img src={props.avatar} alt="avatar" className="w-10 rounded-full" />
         </div>
         <div className="details flex flex-col ">
-          <p className={`name ${props.updates && "font-bold"}`}>{props.title}</p>
+          <p className={`name ${props.updates && "font-bold"}`}>
+            {props.title}
+          </p>
           {props.updates && (
             <div className="flex gap-1 items-center text-sm text-accent">
               {" "}

@@ -104,7 +104,7 @@ export default function HeaderShortcut() {
 
 function PopupMenu({ children }) {
   return (
-    <div className="absolute top-16 right-3  transition-[height] duration-500 ease-in-out bg-secondary p-4 w-96 overflow-hidden rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] text-center">
+    <div className="absolute top-16 right-3 w-96 h-[500px] bg-secondary p-4 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] text-center transition-[height] duration-500 ease-in-out overflow-y-auto">
       {children}
     </div>
   );

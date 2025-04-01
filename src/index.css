@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --bg: #f2f4f7;
   --bg-search: #f0f2f5;
@@ -30,4 +29,10 @@ body {
   background-color: var(--bg);
   color: var(--text);
   height: 100vh;
+}
+
+@layer utilities {
+  .after\:bg-\[var\(--tw-after-bg\)\]::after {
+    background-color: var(--tw-after-bg);
+  }
 }

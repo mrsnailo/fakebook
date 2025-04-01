@@ -1,3 +1,14 @@
+import AddPost from "../components/posts/AddPost";
+
 export default function Feed() {
-  return <p>Welcome Home</p>;
+  return (
+    <div className="home-container flex justify-center">
+      <div className="feed w-1/3">
+        {/* Post section  */}
+        <section className="my-5 w-[500px]">
+          <AddPost />
+        </section>
+      </div>
+    </div>
+  );
 }
