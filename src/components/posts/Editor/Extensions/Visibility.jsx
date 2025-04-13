@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { FaArrowCircleLeft } from "react-icons/fa";
+
 import { FaUserFriends, FaLock, FaGlobe } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { setAudience } from "../../../../store/UI/Post/postSlice";
+import ModalHeader from "../../../UI/Modal/ModalHeader";
 
 const options = [
   { id: "public", icon: <FaGlobe />, label: "Public" },
@@ -34,20 +35,6 @@ const RadioList = ({ audience, onChangeAudience }) => (
   </div>
 );
 
-const Header = ({ onButtonClick }) => (
-  <div className="relative flex items-center justify-center h-12">
-    <button
-      onClick={onButtonClick}
-      type="button"
-      className="absolute left-0 text-xl p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors ml-2"
-      aria-label="Close"
-    >
-      <FaArrowCircleLeft />
-    </button>
-    <h2 className="text-[18px] font-bold text-center">Post audience</h2>
-  </div>
-);
-
 const Visibility = ({ onBack }) => {
   const currentAudience = useSelector(
     (state) => state.post.draftPost.activeAudience
@@ -61,7 +48,7 @@ const Visibility = ({ onBack }) => {
   };
   return (
     <>
-      <Header onButtonClick={onBack} />
+      <ModalHeader onClickBack={onBack} title="Post audience" />
       <hr className="my-3 -mx-4 border-gray-200" />
 
       <div className="info my-2">

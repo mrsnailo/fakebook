@@ -20,7 +20,7 @@ const Header = ({ onClose }) => (
     <button
       type="button"
       onClick={onClose}
-      className="ml-auto text-xl p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+      className="ml-auto text-xl p-2 rounded-full bg-bg hover:brightness-125 transition-colors"
       aria-label="Close"
     >
       <IoMdClose />
@@ -29,19 +29,34 @@ const Header = ({ onClose }) => (
 );
 
 // Reusable User Info Component
-const UserInfo = ({ buttonClickHandler, audience }) => (
+const UserInfo = ({ buttonClickHandler, audience, feeling, activity }) => (
   <div className="flex items-center gap-3">
     <NavLink to="#">
       <img src={Avatar} className="w-10 h-10 rounded-full" alt="User avatar" />
     </NavLink>
     <div className="flex-1">
-      <p className="text-sm font-bold">Shahid Parvez</p>
+      <p className="text-sm">
+        <span className="font-bold text-md"> Shahid Parvez</span>
+        {feeling && (
+          <>
+            is {feeling.emoji} feeling{" "}
+            <span className="font-bold">{feeling.label}</span>
+          </>
+        )}
+        {activity && (
+          <>
+            {" "}
+            is {activity.emoji}{" "}
+            <span className="font-bold">{activity.label}</span>
+          </>
+        )}
+      </p>
       <button
         onClick={buttonClickHandler}
-        className="flex items-center bg-gray-100 px-2 py-1 rounded-md gap-1 text-[14px] hover:bg-gray-200 transition-colors"
+        className="flex items-center justify-center bg-secondary px-2 py-1 rounded-md gap-1 text-[14px] transition-colors brightness-150"
       >
         <BiWorld />
-        <span>{audience}</span>
+        <span className="font-semibold text-xs">{audience}</span>
         <FaCaretDown />
       </button>
     </div>
@@ -145,14 +160,23 @@ const EmojiPickerComponent = ({ isOpen, onEmojiClick, pickerRef, toggle }) => {
 };
 
 // Main Editor Wrapper Component
-export default function EditorWrapper({ onClose, audienceSelector }) {
+export default function EditorWrapper({
+  onClose,
+  audienceSelector,
+  feelingActivity,
+  locationSelector,
+}) {
   const dispatch = useDispatch();
   const accent = useSelector((state) => state.accent.activeAccent);
+  const feeling = useSelector((state) => state.post.draftPost.feeling);
+  const activity = useSelector((state) => state.post.draftPost.activity);
+  console.log(feeling);
+  console.log(activity);
   const currentAudience = useSelector(
     (state) => state.post.draftPost.activeAudience
   );
   const postThemes = useSelector((state) => state.post.postbackgrounds);
-  console.log(postThemes);
+
   const activeThemeBg = useSelector((state) => state.post.activeBackground);
   const [listOpened, setListOpened] = useState(false);
   const [emojiPicker, setEmojiPicker] = useState(false);
@@ -198,6 +222,8 @@ export default function EditorWrapper({ onClose, audienceSelector }) {
       <UserInfo
         buttonClickHandler={audienceSelector}
         audience={currentAudience}
+        feeling={feeling}
+        activity={activity}
       />
       <div className={`my-5 -mx-4 ${activeThemeBg}`}>
         <div className="relative h-[250px] flex flex-col rounded-lg py-2">
@@ -237,9 +263,10 @@ export default function EditorWrapper({ onClose, audienceSelector }) {
           <MdOutlineEmojiEmotions
             className="text-yellow-500 cursor-pointer hover:text-yellow-600 transition-colors"
             aria-label="Add emoji"
-            onClick={() => setEmojiPicker((prev) => !prev)}
+            onClick={feelingActivity}
           />
           <FaLocationDot
+            onClick={locationSelector}
             className="text-red-600 cursor-pointer hover:text-red-700 transition-colors"
             aria-label="Add location"
           />

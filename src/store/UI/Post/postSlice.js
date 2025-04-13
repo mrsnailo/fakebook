@@ -15,6 +15,7 @@ const initialState = {
     background: "white",
     activeAudience: "public",
     feeling: null,
+    activity: null,
     location: null,
   },
 };
@@ -38,6 +39,9 @@ const postSlice = createSlice({
     },
     setAudience: (state, action) => {
       state.draftPost.activeAudience = action.payload;
+    },
+    setActivity: (state, action) => {
+      state.draftPost.activity = action.payload;
     },
     clearDraft: (state) => {
       state.draftPost = {
@@ -69,6 +73,7 @@ export const {
   removeTag,
   setLocation,
   setAudience,
+  setActivity,
   clearDraft,
   savePost,
 } = postSlice.actions;
