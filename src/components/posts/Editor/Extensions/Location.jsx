@@ -7,6 +7,9 @@ const suggestedLocations = [
   { label: "Dhaka, Bangladesh", value: "Dhaka" },
 ];
 
+const SuggestedLocationList = () => {
+  return <></>;
+};
 const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState(null);
   const [results, setResult] = useState(null);
@@ -40,7 +43,7 @@ const SearchBar = () => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600"
+          className="absolute w-5 h-5 top-2 left-2.5 text-text"
         >
           <path
             fill-rule="evenodd"
@@ -54,7 +57,7 @@ const SearchBar = () => {
           onChange={(e) => {
             setSearchQuery(e.target.value);
           }}
-          class="w-full bg-hover placeholder:text-slate-400 text-slate-700 text-sm  rounded-full pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+          className="w-full bg-hover placeholder:text-text text-text text-sm  rounded-full pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
           placeholder="Chuadanga, Bangladesh"
         />
       </div>
@@ -67,6 +70,7 @@ const Location = ({ onBack }) => {
     <>
       <ModalHeader onClickBack={onBack} title={"Search for location"} />
       <SearchBar />
+      <SuggestedLocationList />
     </>
   );
 };

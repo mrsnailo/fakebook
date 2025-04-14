@@ -22,6 +22,7 @@ const ModalOverlay = ({ children }) => {
       <div className="content">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
+          layout
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.3 }}
@@ -48,10 +49,10 @@ const Modal = ({ children, onClose }) => {
   if (!portaElement) return null;
 
   return (
-    <>
+    <div>
       {createPortal(<Backdrop onClickBackdrop={onClose} />, portaElement)}
       {createPortal(<ModalOverlay>{children}</ModalOverlay>, portaElement)}
-    </>
+    </div>
   );
 };
 

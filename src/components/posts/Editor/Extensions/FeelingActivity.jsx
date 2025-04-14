@@ -54,7 +54,7 @@ export default function FeelingActivityPicker({ onBack }) {
     <>
       <ModalHeader onClickBack={onBack} title="How are you feeling?" />
 
-      <div className="flex px-4 pt-2 border-b space-x-4">
+      <div className="flex px-4 pt-2 space-x-4">
         {["Feelings", "Activities"].map((name) => (
           <button
             key={name}

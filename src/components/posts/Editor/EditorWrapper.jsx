@@ -53,7 +53,7 @@ const UserInfo = ({ buttonClickHandler, audience, feeling, activity }) => (
       </p>
       <button
         onClick={buttonClickHandler}
-        className="flex items-center justify-center bg-secondary px-2 py-1 rounded-md gap-1 text-[14px] transition-colors brightness-150"
+        className="flex items-center justify-center bg-hover px-2 py-1 rounded-md gap-1 text-[14px] transition-colors"
       >
         <BiWorld />
         <span className="font-semibold text-xs">{audience}</span>
@@ -257,7 +257,7 @@ export default function EditorWrapper({
           </div>
         </div>
       </div>
-      <div className="flex justify-between items-center px-6 py-4 border border-gray-200 rounded-md">
+      <div className="flex justify-between items-center px-6 py-4 border border-gray-200 border-[2px] rounded-md">
         <span className="font-semibold text-sm">Add to your post</span>
         <div className="flex gap-4 text-2xl">
           <MdOutlineEmojiEmotions
