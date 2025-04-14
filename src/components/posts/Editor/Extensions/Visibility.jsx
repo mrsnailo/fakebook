@@ -16,7 +16,7 @@ const RadioList = ({ audience, onChangeAudience }) => (
     {options.map((option) => (
       <label
         key={option.id}
-        className="flex items-center justify-between p-3 border rounded-lg cursor-pointer hover:bg-gray-50 transition"
+        className="flex items-center justify-between p-3 border rounded-lg cursor-pointer hover:bg-hover transition"
       >
         <div className="flex items-center gap-3">
           <span className="text-xl">{option.icon}</span>
