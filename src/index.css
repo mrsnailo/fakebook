@@ -44,7 +44,7 @@ body {
 
 .mdxeditor-root-contenteditable,
 .mdxeditor-root-contenteditable * {
-  color: var(--text) !important;
+  color: white !important;
 }
 .mdxeditor-popup-container {
   z-index: 60 !important;
@@ -54,25 +54,4 @@ body {
   background: var(--accent) !important;
   color: var(--text) !important;
   margin: 0 5px;
-}
-
-/* post bg */
-.theme-sunset {
-  background: linear-gradient(135deg, #ff5e62, #f09819);
-}
-
-.theme-ocean {
-  background: linear-gradient(135deg, #2bc0e4, #eaecc6);
-}
-
-.theme-forest {
-  background: linear-gradient(135deg, #134e5e, #71b280);
-}
-
-.theme-dusk {
-  background: linear-gradient(135deg, #4b79a1, #283e51);
-}
-
-.theme-candy {
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
 }

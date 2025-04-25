@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import ModalHeader from "../../../UI/Modal/ModalHeader";
 import { FaLocationDot } from "react-icons/fa6";
 import { InfinitySpin } from "react-loader-spinner";
+import { useDispatch } from "react-redux";
+import { setLocation } from "../../../../store/UI/Post/postSlice";
 
 const suggestedLocations = [
   {
@@ -13,16 +15,20 @@ const suggestedLocations = [
   { place: "Barisal", location: "Barisal, Barisal Division, Bangladesh" },
 ];
 
-const LocationList = ({ heading, locations }) => (
+const LocationList = ({ heading, locations, onSelect, dispatch }) => (
   <>
     <p className="heading text-xl font-bold">{heading}</p>
     <div className="list h-[300px] overflow-y-auto">
-      {locations.map((loc, idx) => (
+      {locations.map((loc) => (
         <div
-          key={idx}
-          className="flex items-center gap-3 my-3 hover:bg-hover px-2 py-3 rounded-md"
+          onClick={() => {
+            dispatch(setLocation(loc.place));
+            onSelect();
+          }}
+          key={loc.place}
+          className="flex items-center gap-3 my-3 hover:bg-hover px-2 py-3 rounded-md cursor-pointer"
         >
-          <div className="icon p-4 bg-bg  rounded-full">
+          <div className="icon p-4 bg-bg rounded-full">
             <FaLocationDot />
           </div>
           <div className="details">
@@ -54,7 +60,7 @@ const SearchBar = ({ value, onChange }) => (
       <input
         onChange={onChange}
         value={value}
-        className="w-full bg-hover placeholder:text-text text-text text-sm  rounded-full pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+        className="w-full bg-hover placeholder:text-gray-400 text-text text-sm  rounded-full pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
         placeholder="Chuadanga, Bangladesh"
       />
     </div>
@@ -62,6 +68,7 @@ const SearchBar = ({ value, onChange }) => (
 );
 
 const Location = ({ onBack }) => {
+  const dispatch = useDispatch();
   const [heading, setHeading] = useState("Suggested");
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -70,7 +77,7 @@ const Location = ({ onBack }) => {
 
   useEffect(() => {
     const query = searchQuery.trim();
-  
+
     // Immediately show loading spinner when typing starts
     if (query !== "") {
       setIsLoading(true);
@@ -79,16 +86,21 @@ const Location = ({ onBack }) => {
       setHeading("Suggested");
       setIsLoading(false);
     }
-  
+
     const delayDebounce = setTimeout(() => {
       if (query === "") return;
-  
+
       fetch(`${NOMINATIM_URL}?q=${query}&format=json&addressdetails=1`)
         .then((res) => res.json())
         .then((data) => {
           const locations = data.map((obj) => ({
             place: obj.name,
-            location: `${obj.address.city || obj.address.town || obj.address.village || "Unknown"}, ${obj.address.state || "Unknown"}, ${obj.address.country}`,
+            location: `${
+              obj.address.city ||
+              obj.address.town ||
+              obj.address.village ||
+              "Unknown"
+            }, ${obj.address.state || "Unknown"}, ${obj.address.country}`,
           }));
           setHeading("Results");
           setResults(locations);
@@ -100,10 +112,10 @@ const Location = ({ onBack }) => {
           setIsLoading(false);
         });
     }, 1500);
-  
+
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
-  
+
   return (
     <>
       <ModalHeader onClickBack={onBack} title={"Search for location"} />
@@ -114,16 +126,18 @@ const Location = ({ onBack }) => {
       {isLoading && (
         <div className=" flex justify-center items-center h-52">
           <InfinitySpin
-          visible={true}
-          width="100"
-          color="#4fa94d"
-          ariaLabel="infinity-spin-loading"
-        />
+            visible={true}
+            width="100"
+            color="#4fa94d"
+            ariaLabel="infinity-spin-loading"
+          />
         </div>
       )}
       {!isLoading && (
         <LocationList
           heading={heading}
+          onSelect={onBack}
+          dispatch={dispatch}
           locations={results ?? suggestedLocations}
         />
       )}

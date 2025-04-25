@@ -1,15 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
+import pokemon from "../../../assets/images/backgrounds/post-background/pokemon.jpg";
+import barcelona from "../../../assets/images/backgrounds/post-background/barcelona.jpg";
+import nature from "../../../assets/images/backgrounds/post-background/nature.jpg";
+import nezuko from "../../../assets/images/backgrounds/post-background/nezuko.jpg";
+import sakura from "../../../assets/images/backgrounds/post-background/sakura.jpg";
 
 const initialState = {
   posts: [],
   postbackgrounds: [
-    "theme-sunset",
-    "theme-ocean",
-    "theme-forest",
-    "theme-dusk",
-    "theme-candy",
+    {
+      name: "pokemon",
+      url: pokemon,
+    },
+    {
+      name: "barcelona",
+      url: barcelona,
+    },
+    {
+      name: "nature",
+      url: nature,
+    },
+    {
+      name: "nezuko",
+      url: nezuko,
+    },
+    {
+      name: "sakura",
+      url: sakura,
+    },
   ],
-  activeBackground: "white",
+  activeBackground: {},
   draftPost: {
     content: "",
     background: "white",

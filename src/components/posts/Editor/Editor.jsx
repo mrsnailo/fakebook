@@ -16,15 +16,16 @@ import {
 import "@mdxeditor/editor/style.css";
 
 // Use forwardRef to pass the ref to MDXEditor
-const Editor = React.forwardRef((props, ref) => {
+const Editor = React.forwardRef(({ handleContent }, ref) => {
   const [content, setContent] = useState("### What's on your mind, User?");
 
   return (
     <div className="my-3">
       <MDXEditor
-        ref={ref} // Forwarded ref goes here
-        className="prose"
+        ref={ref}
+        className="prose text-white"
         markdown={content}
+        onBlur={() => handleContent(content)}
         onChange={setContent}
         plugins={[
           headingsPlugin(),

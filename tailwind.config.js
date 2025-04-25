@@ -16,6 +16,9 @@ export default {
         card: "var(--card-bg)",
         hover: "var(--hover)",
       },
+      postBackgrounds: {
+        pokemon: "url('/images/backgrounds/post-background/pokemon.jpg')",
+      },
     },
   },
   plugins: [typography], // Correct ES6 import

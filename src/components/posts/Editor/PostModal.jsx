@@ -103,7 +103,7 @@ export default function PostModal(props) {
 
 const PostContainer = ({ children }) => {
   return (
-    <div className="w-[600px] rounded-lg shadow-md bg-secondary p-4 overflow-hidden">
+    <div className="w-[600px] rounded-lg shadow-md bg-secondary p-4">
       {children}
     </div>
   );
