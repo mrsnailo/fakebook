@@ -5,15 +5,16 @@ import { PiSmileyWinkBold } from "react-icons/pi";
 import Avatar from "../../assets/images/user/avatar.jpg";
 import { NavLink } from "react-router-dom";
 
-import { useState } from "react";
 import PostModal from "./Editor/PostModal";
+import { useDispatch } from "react-redux";
+import {
+  setModalContent,
+  setModalVisibility,
+} from "../../store/UI/Modal/modalSlice";
 
 export default function AddPost() {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const closeHandler = () => {
-    console.log("ece");
-    setIsExpanded(false);
-  };
+  const dispatch = useDispatch();
+
   return (
     <>
       <Card>
@@ -30,7 +31,8 @@ export default function AddPost() {
                 placeholder="What's on your mind?"
                 readOnly
                 onClick={() => {
-                  setIsExpanded(true);
+                  dispatch(setModalContent(<PostModal />));
+                  dispatch(setModalVisibility(true));
                 }}
                 className="w-full p-2 rounded-full bg-search text-text lg:block focus:outline-none focus:ring-0 transition-all duration-200 cursor-pointer"
               />
@@ -56,7 +58,6 @@ export default function AddPost() {
           />
         </div>
       </Card>
-      {isExpanded && <PostModal onClose={closeHandler} />}
     </>
   );
 }

@@ -21,89 +21,87 @@ export default function PostModal(props) {
   };
 
   return (
-    <Modal>
-      <PostContainer>
-        <AnimatePresence mode="wait">
-          {activeModal === "main" && (
-            <motion.div
-              key="main"
-              variants={mainVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.3 }}
-            >
-              <EditorWrapper
-                onClose={props.onClose}
-                audienceSelector={() => {
-                  setActiveModal("visibility");
-                }}
-                feelingActivity={() => {
-                  setActiveModal("feeling");
-                }}
-                locationSelector={() => {
-                  setActiveModal("location");
-                }}
-              />
-            </motion.div>
-          )}
-          {activeModal === "visibility" && (
-            <motion.div
-              key="visibility"
-              variants={otherVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.3 }}
-            >
-              <Visibility
-                onBack={() => {
-                  setActiveModal("main");
-                }}
-              />
-            </motion.div>
-          )}
-          {activeModal === "feeling" && (
-            <motion.div
-              key="feeling"
-              variants={otherVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.3 }}
-            >
-              <FeelingActivityPicker
-                onBack={() => {
-                  setActiveModal("main");
-                }}
-              />
-            </motion.div>
-          )}
-          {activeModal === "location" && (
-            <motion.div
-              key="location"
-              variants={otherVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              transition={{ duration: 0.3 }}
-            >
-              <Location
-                onBack={() => {
-                  setActiveModal("main");
-                }}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </PostContainer>
-    </Modal>
+    <PostContainer>
+      <AnimatePresence mode="wait">
+        {activeModal === "main" && (
+          <motion.div
+            key="main"
+            variants={mainVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.3 }}
+          >
+            <EditorWrapper
+              onClose={props.onClose}
+              audienceSelector={() => {
+                setActiveModal("visibility");
+              }}
+              feelingActivity={() => {
+                setActiveModal("feeling");
+              }}
+              locationSelector={() => {
+                setActiveModal("location");
+              }}
+            />
+          </motion.div>
+        )}
+        {activeModal === "visibility" && (
+          <motion.div
+            key="visibility"
+            variants={otherVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.3 }}
+          >
+            <Visibility
+              onBack={() => {
+                setActiveModal("main");
+              }}
+            />
+          </motion.div>
+        )}
+        {activeModal === "feeling" && (
+          <motion.div
+            key="feeling"
+            variants={otherVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.3 }}
+          >
+            <FeelingActivityPicker
+              onBack={() => {
+                setActiveModal("main");
+              }}
+            />
+          </motion.div>
+        )}
+        {activeModal === "location" && (
+          <motion.div
+            key="location"
+            variants={otherVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.3 }}
+          >
+            <Location
+              onBack={() => {
+                setActiveModal("main");
+              }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </PostContainer>
   );
 }
 
 const PostContainer = ({ children }) => {
   return (
-    <div className="w-[600px] rounded-lg shadow-md bg-secondary p-4">
+    <div className="w-[600px] rounded-lg shadow-md bg-secondary p-4 overflow-hidden">
       {children}
     </div>
   );

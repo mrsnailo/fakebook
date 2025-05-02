@@ -17,7 +17,7 @@ import "@mdxeditor/editor/style.css";
 
 // Use forwardRef to pass the ref to MDXEditor
 const Editor = React.forwardRef(({ handleContent }, ref) => {
-  const [content, setContent] = useState("### What's on your mind, User?");
+  const [content, setContent] = useState("");
 
   return (
     <div className="my-3">

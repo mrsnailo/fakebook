@@ -72,8 +72,8 @@ const postSlice = createSlice({
         location: null,
       };
     },
-    savePost: (state, action) => {
-      state.posts.push(action.payload);
+    savePost: (state) => {
+      state.posts.push(state.draftPost);
       state.draftPost = {
         content: "",
         background: state.activeBackground,

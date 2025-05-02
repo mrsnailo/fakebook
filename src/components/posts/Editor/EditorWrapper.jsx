@@ -8,27 +8,41 @@ import { BsEmojiAngry } from "react-icons/bs";
 import Editor from "./Editor";
 import Avatar from "../../../assets/images/user/avatar.jpg";
 import { AnimatePresence, motion } from "framer-motion"; // Corrected import
-import { setActive, setContent } from "../../../store/UI/Post/postSlice";
+import { Oval } from "react-loader-spinner";
+import {
+  savePost,
+  setActive,
+  setContent,
+} from "../../../store/UI/Post/postSlice";
 import { MdOutlineEmojiEmotions } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 
 import { getCurrentTheme } from "../../../utils/themeUtil";
+import {
+  resetModal,
+  setModalContent,
+} from "../../../store/UI/Modal/modalSlice";
 
 // Header
-const Header = ({ onClose }) => (
-  <div className="grid grid-cols-[1fr_auto] items-center">
-    <h2 className="text-[18px] font-bold text-center">Create Post</h2>
-    <button
-      type="button"
-      onClick={onClose}
-      className="ml-auto text-xl p-2 rounded-full bg-bg hover:brightness-125 transition-colors"
-      aria-label="Close"
-    >
-      <IoMdClose />
-    </button>
-  </div>
-);
+const Header = () => {
+  const dispatch = useDispatch();
+  return (
+    <div className="grid grid-cols-[1fr_auto] items-center">
+      <h2 className="text-[18px] font-bold text-center">Create Post</h2>
+      <button
+        type="button"
+        onClick={() => {
+          dispatch(resetModal());
+        }}
+        className="ml-auto text-xl p-2 rounded-full bg-bg hover:brightness-125 transition-colors"
+        aria-label="Close"
+      >
+        <IoMdClose />
+      </button>
+    </div>
+  );
+};
 
 // User Info
 const UserInfo = ({
@@ -162,13 +176,13 @@ const EmojiPickerComponent = ({ isOpen, onEmojiClick, pickerRef }) =>
 
 // Main
 export default function EditorWrapper({
-  onClose,
   audienceSelector,
   feelingActivity,
   locationSelector,
 }) {
   const dispatch = useDispatch();
   const draftPost = useSelector((state) => state.post.draftPost);
+  const isContentEmpty = draftPost.content === "";
   const postbackgrounds = useSelector((state) => state.post.postbackgrounds);
   const activeBackground = useSelector((state) => state.post.activeBackground);
   const activeAccent = useSelector((state) => state.accent.activeAccent);
@@ -179,9 +193,32 @@ export default function EditorWrapper({
   const editorRef = useRef(null);
   const pickerRef = useRef(null);
   const emojiIconRef = useRef(null);
-  console.log(emojiPicker);
 
   const contentHandler = (content) => dispatch(setContent(content));
+
+  const submitHandler = () => {
+    dispatch(
+      setModalContent(
+        <Oval
+          visible={true}
+          height="80"
+          width="80"
+          color="#4fa94d"
+          ariaLabel="oval-loading"
+        />
+      )
+    );
+
+    setTimeout(() => {
+      dispatch(savePost());
+
+      dispatch(setModalContent(<p>✅ Post saved successfully!</p>));
+
+      setTimeout(() => {
+        dispatch(resetModal());
+      }, 1500);
+    }, 2000);
+  };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -212,7 +249,7 @@ export default function EditorWrapper({
 
   return (
     <>
-      <Header onClose={onClose} />
+      <Header />
       <hr className="my-3 -mx-4 border-gray-200" />
       <UserInfo
         buttonClickHandler={audienceSelector}
@@ -281,9 +318,11 @@ export default function EditorWrapper({
 
       <div className="flex justify-center py-6">
         <button
+          disabled={isContentEmpty}
           type="button"
+          onClick={submitHandler}
           className="w-full px-4 py-2 rounded-md text-white font-semibold hover:brightness-110 transition-all"
-          style={{ backgroundColor: activeAccent }}
+          style={{ backgroundColor: isContentEmpty ? "gray" : activeAccent }}
         >
           Post
         </button>
